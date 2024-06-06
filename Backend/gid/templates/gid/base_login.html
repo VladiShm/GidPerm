@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      {% load static %}
+    {% block css %}
+    {% endblock %}
+    <title>Login</title>
+  </head>
+  <body style="background-image: url({% static 'img/login/background.png'%})">
+    <div class="container">
+      <div class="header">
+        <img class="logo" src="{% static 'img/login/header.png'%}" alt="Header Image" />
+      </div>
+      <div class="main">
+        <div class="left-part">
+             {% block form %}
+             {% endblock %}
+        </div>
+        <div class="right-part">
+          <img src="{% static 'img/login/bear.png'%}" alt="Bear" class="background-img" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

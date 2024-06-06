@@ -1,0 +1,21 @@
+{% extends 'gid/base_login.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block form %}
+ <form class="forms" action="#">
+            <h1>Вход</h1>
+            <input class="input-box" type="text" placeholder="Логин" required />
+            <input
+              class="input-box"
+              type="password"
+              placeholder="Пароль"
+              required
+            />
+            <button type="submit" class="btn">Войти</button>
+            <a href="register.html">Зарегистрироваться</a>
+ </form>
+{% endblock %}
