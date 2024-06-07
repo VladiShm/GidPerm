@@ -2,17 +2,14 @@
 {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    <title>GidPerm</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/sight_detail.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>{{ sight.name }}</title>
 </head>
 <body>
-    <div class="container">
+
         <div class="header" style="background-image: url('{% static 'img/img.png' %}')">
             <div class="logo-container">
                 <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-image">
@@ -49,19 +46,36 @@
                 </ul>
             </nav>
         </div>
-        <div class="main">
-            <div class="product-grid">
-                {% for sight in sights %}
-                <div class="product-card">
-                    <a href="{% url 'sight_detail' sight.id %}">
-                        <img src="{{ sight.image.url }}" alt="{{ sight.name }}" />
-                        <h2>{{ sight.name }}</h2>
-                        <p>{{ sight.description }}</p>
-                    </a>
-                </div>
-                {% endfor %}
+
+    <main class="main-content">
+        <section class="sight-header" style="background-image: url('{{ sight.image.url }}')">
+            <h1>{{ sight.name }}</h1>
+        </section>
+
+        <section class="sight-details">
+            <div class="image-container">
+                <img src="{{ sight.image.url }}" alt="{{ sight.name }}">
             </div>
-        </div>
-    </div>
+            <div class="description">
+                <p>{{ sight.description }}</p>
+                <p class="rating">Средняя оценка: {{ sight.average_rating }}</p>
+            </div>
+        </section>
+
+        {% if user.is_authenticated %}
+        <section class="rating-form">
+            <h2>Оцените достопримечательность</h2>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Отправить</button>
+            </form>
+        </section>
+        {% else %}
+        <section class="login-prompt">
+            <p>Вы должны быть зарегистрированы <a href="{% url 'login' %}">Log in</a></p>
+        </section>
+        {% endif %}
+    </main>
 </body>
 </html>

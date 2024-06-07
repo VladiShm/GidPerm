@@ -1,17 +1,22 @@
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from gid.forms import UserLoginForm, UserRegistrationForm
-from gid.models import Sight
+from gid.forms import UserLoginForm, UserRegistrationForm, RatingForm
+from gid.models import Sight, Rating
 
 
 def index(request):
+    top_sights = Sight.top_rated_sights()
+    return render(request, 'gid/index.html', {'top_sights': top_sights})
+
+def catalog(request):
     context = {
-        'sights': Sight.objects.all()[:4],
+        'sights': Sight.objects.all(),
     }
-    return render(request, 'gid/index.html', context)
+    return render(request, 'gid/catalog.html', context)
 
 def login(request):
     if request.method == 'POST':
@@ -52,3 +57,21 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+def sight_detail(request, sight_id):
+    sight = get_object_or_404(Sight, pk=sight_id)
+    form = RatingForm()
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            form = RatingForm(request.POST)
+            if form.is_valid():
+                rating, created = Rating.objects.update_or_create(
+                    sight=sight, user=request.user,
+                    defaults={'score': form.cleaned_data['score']}
+                )
+                return redirect('sight_detail', sight_id=sight.id)
+        else:
+            return redirect('login')  # Перенаправить на страницу входа, если пользователь не аутентифицирован
+
+    return render(request, 'gid/sight_detail.html', {'sight': sight, 'form': form})

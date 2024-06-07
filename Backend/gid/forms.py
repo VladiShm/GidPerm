@@ -2,6 +2,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 from django import forms
 from django.contrib.auth.models import User
 
+from gid.models import Rating
+
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -36,3 +38,12 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'password1', 'password2')
+
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ['score']
+        widgets = {
+            'score': forms.NumberInput(attrs={'min': 1, 'max': 5})
+        }

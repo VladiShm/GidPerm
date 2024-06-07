@@ -107,12 +107,12 @@ nav ul li ul li:hover {
   display: block;
   width: 100px;
   height: 4px;
-  background: #ff6347; /* Use a color that matches your theme */
+  background: #ff6347;
   margin: 10px auto 0;
   border-radius: 2px;
 }
 .product-card {
-  margin-top: 5vh;
+  margin-top: 3vh;
   background-color: #EFEFEF;
   padding: 20px;
   border: 1px solid #ddd;
@@ -120,6 +120,10 @@ nav ul li ul li:hover {
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card a{
+color: black;
 }
 
 .product-card:hover {

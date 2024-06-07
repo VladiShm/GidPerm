@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-          <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>GidPerm</title>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-       <div class="header" style="background-image: url('{% static 'img/img.png' %}')">
-    <div class="logo-container">
-      <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-image">
-      <a href="{% url 'index' %}" class="logo">PERM GUIDE</a>
-    </div>
-    <nav>
-      <ul>
-        <li>
-          <a href="{% url 'index' %}"><i class="fas fa-book"></i> Достопримечательности</a>
-        </li>
-        {% if user.is_authenticated %}
-        <li>
-          <a href="#"><i class="fas fa-bars"></i> Меню</a>
-          <ul>
-            <li>
-              <a href="{% url 'index' %}"
-                ><i class="fas fa-user"></i> Профиль</a
-              >
-            </li>
-            <li>
-              {% if user.is_superuser %}
-              <a href="{% url 'admin:index' %}"
-                ><i class="fas fa-cogs"></i> Админ-панель</a
-              >
-              {% endif %}
-            </li>
-            <li>
-              <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
-            </li>
-          </ul>
-        </li>
-        {% endif %}
-        {% if not user.is_authenticated %}
-        <li>
-          <a href="{% url 'login' %}"
-            ><i class="fas fa-sign-in-alt"></i> Войти</a
-          >
-        </li>
-        {% endif %}
-      </ul>
-    </nav>
-  </div>
-      <div class="main">
-         <h1 class="main-title">Самые популярные достопримечательности Пермского края</h1>
-        <div class="product-grid">
-             {% for sight in sights %}
-            <div class="product-card">
-                <img src="{{ sight.image.url }}" alt="{{ sight.name }}" />
-                <h2>{{ sight.name }}</h2>
-                <p>{{ sight.description }}</p>
-              </a>
+        <div class="header" style="background-image: url('{% static 'img/img.png' %}')">
+            <div class="logo-container">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-image">
+                <a href="{% url 'index' %}" class="logo">PERM GUIDE</a>
             </div>
-          {% endfor %}
+            <nav>
+                <ul>
+                    <li>
+                        <a href="{% url 'catalog' %}"><i class="fas fa-book"></i> Достопримечательности</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="#"><i class="fas fa-bars"></i> Меню</a>
+                        <ul>
+                            <li>
+                                <a href="{% url 'index' %}"><i class="fas fa-user"></i> Профиль</a>
+                            </li>
+                            {% if user.is_superuser %}
+                            <li>
+                                <a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% if not user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Войти</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
         </div>
-      </div>
-              <div class="footer">
-          <div class="divider"></div>
-          <div>
-            <p>+7(995)321-83-18</p>
-            <p>г.Пермь</p>
-            <p>permGuide@mail.ru</p>
-          </div>
+        <div class="main">
+            <h1 class="main-title">Самые популярные достопримечательности Пермского края</h1>
+            <div class="product-grid">
+                {% for sight in top_sights %}
+                <div class="product-card">
+                    <img src="{{ sight.image.url }}" alt="{{ sight.name }}" />
+                    <h2>{{ sight.name }}</h2>
+                    <p>{{ sight.description }}</p>
+                    <p class="rating">Средняя оценка: {{ sight.avg_rating|floatformat:1 }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="product-grid">
+                {% for sight in sights %}
+                <div class="product-card">
+                    <img src="{{ sight.image.url }}" alt="{{ sight.name }}" />
+                    <h2>{{ sight.name }}</h2>
+                    <p>{{ sight.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="footer">
+            <div class="divider"></div>
+            <div>
+                <p>+7(995)321-83-18</p>
+                <p>г.Пермь</p>
+                <p>permGuide@mail.ru</p>
+            </div>
         </div>
     </div>
-  </body>
+</body>
 </html>

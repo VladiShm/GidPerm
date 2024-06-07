@@ -67,6 +67,7 @@ a {
   text-decoration: none;
   color: black;
   font-weight: bold;
+  color: black;
 }
 a:hover {
   text-decoration: underline;
