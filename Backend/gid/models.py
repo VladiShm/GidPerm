@@ -26,3 +26,10 @@ class Rating(models.Model):
 
     class Meta:
         unique_together = ('sight', 'user')
+
+
+class Comment(models.Model):
+    sight = models.ForeignKey(Sight, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

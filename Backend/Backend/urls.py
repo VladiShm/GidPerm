@@ -14,6 +14,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('catalog/', catalog, name='catalog'),
     path('sight/<int:sight_id>/', views.sight_detail, name='sight_detail'),
+    path('sight/<int:sight_id>/comment_submit/', views.submit_comment, name='comment_submit'),
 ]
 
 

@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from gid.forms import UserLoginForm, UserRegistrationForm, RatingForm
-from gid.models import Sight, Rating
+from gid.models import Sight, Rating, Comment
 
 
 def index(request):
@@ -58,9 +58,12 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
 
+from django.contrib import messages
+
 def sight_detail(request, sight_id):
     sight = get_object_or_404(Sight, pk=sight_id)
     form = RatingForm()
+    comments = Comment.objects.filter(sight=sight)
 
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -72,6 +75,15 @@ def sight_detail(request, sight_id):
                 )
                 return redirect('sight_detail', sight_id=sight.id)
         else:
-            return redirect('login')  # Перенаправить на страницу входа, если пользователь не аутентифицирован
+            return redirect('login')
 
-    return render(request, 'gid/sight_detail.html', {'sight': sight, 'form': form})
+    return render(request, 'gid/sight_detail.html', {'sight': sight, 'form': form, 'comments': comments})
+
+
+@login_required
+def submit_comment(request, sight_id):
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        sight = get_object_or_404(Sight, pk=sight_id)
+        Comment.objects.create(user=request.user, sight=sight, text=text)
+    return redirect('sight_detail', sight_id=sight_id)

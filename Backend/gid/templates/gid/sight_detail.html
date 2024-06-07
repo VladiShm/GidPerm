@@ -47,35 +47,65 @@
             </nav>
         </div>
 
-    <main class="main-content">
-        <section class="sight-header" style="background-image: url('{{ sight.image.url }}')">
-            <h1>{{ sight.name }}</h1>
-        </section>
+    <div class="main-content">
+    <section class="sight-header" style="background-image: url('{{ sight.image.url }}')">
+        <h1>{{ sight.name }}</h1>
+    </section>
 
-        <section class="sight-details">
-            <div class="image-container">
-                <img src="{{ sight.image.url }}" alt="{{ sight.name }}">
-            </div>
-            <div class="description">
-                <p>{{ sight.description }}</p>
-                <p class="rating">Средняя оценка: {{ sight.average_rating }}</p>
-            </div>
-        </section>
+    <section class="sight-details">
+        <div class="image-container">
+            <img src="{{ sight.image.url }}" alt="{{ sight.name }}">
+        </div>
+        <div class="description">
+            <p>{{ sight.description }}</p>
+            <p class="rating">Средняя оценка: {{ sight.average_rating }}</p>
+        </div>
+    </section>
 
-        {% if user.is_authenticated %}
-        <section class="rating-form">
-            <h2>Оцените достопримечательность</h2>
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Отправить</button>
-            </form>
-        </section>
-        {% else %}
-        <section class="login-prompt">
-            <p>Вы должны быть зарегистрированы <a href="{% url 'login' %}">Log in</a></p>
-        </section>
-        {% endif %}
-    </main>
+    {% if user.is_authenticated %}
+    <section class="rating-form">
+        <h2>Оцените достопримечательность</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+    </section>
+    {% else %}
+    <section class="login-prompt">
+        <p>Вы должны быть зарегистрированы <a href="{% url 'login' %}">Log in</a></p>
+    </section>
+    {% endif %}
+
+    <!-- Comments section and form -->
+   <section class="comments">
+    <div class="comments-header">
+        <h2>Комментарии</h2>
+    </div>
+    <ul class="comment-list">
+        {% for comment in comments %}
+        <li class="comment">
+            <div class="comment-info">
+                <strong class="comment-author">{{ comment.user.username }}</strong>
+                <small class="comment-date">{{ comment.created_at }}</small>
+            </div>
+            <p class="comment-text">{{ comment.text }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section class="comment-form">
+    <h2>Оставить комментарий</h2>
+    <form action="{% url 'comment_submit' sight.id %}" method="post" class="comment-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="text" rows="4" cols="50" class="comment-textarea"></textarea>
+        </div>
+        <button type="submit" class="comment-submit-btn">Отправить</button>
+    </form>
+</section>
+</div>
+
 </body>
 </html>
