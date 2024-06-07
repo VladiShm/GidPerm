@@ -6,22 +6,19 @@
 {% endblock %}
 
 {% block form %}
-  <form class="forms" action="#">
+  <form class="forms" action="{% url 'register' %}" method="post">
+              {% if form.errors %}
+      <div class="profile-form">
+        {{ form.errors }}
+        </div>
+    {% endif %}
             <h1>Регистрация</h1>
-            <input class="input-box" type="text" placeholder="ФИО" required />
-            <input class="input-box" type="text" placeholder="Логин" required />
-            <input
-              class="input-box"
-              type="password"
-              placeholder="Пароль"
-              required
-            />
-            <input
-              class="input-box"
-              type="password"
-              placeholder="Подтвердите пароль"
-              required
-            />
+            {% csrf_token %}
+            {{ form.first_name }}
+            {{ form.last_name }}
+            {{ form.username }}
+            {{ form.password1 }}
+            {{ form.password2 }}
             <button type="submit" class="btn">Зарегистрироваться</button>
             <a href="{% url 'login' %}">Войти</a>
           </form>
