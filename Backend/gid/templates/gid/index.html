@@ -24,9 +24,6 @@
                     <li>
                         <a href="#"><i class="fas fa-bars"></i> Меню</a>
                         <ul>
-                            <li>
-                                <a href="{% url 'index' %}"><i class="fas fa-user"></i> Профиль</a>
-                            </li>
                             {% if user.is_superuser %}
                             <li>
                                 <a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a>

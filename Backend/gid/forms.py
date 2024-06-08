@@ -48,8 +48,6 @@ class RatingForm(forms.ModelForm):
             'score': forms.NumberInput(attrs={'min': 1, 'max': 5})
         }
 
-
-
 class UserNoteForm(forms.ModelForm):
     class Meta:
         model = UserNote

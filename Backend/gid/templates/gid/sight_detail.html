@@ -58,8 +58,7 @@
                 </div>
                 <div class="description">
                     <p>{{ sight.description }}</p>
-                   <p class="rating">Средняя оценка: {{ sight.average_rating }}</p>
-
+                    <p class="rating">Средняя оценка: {{ sight.average_rating }}</p>
                 </div>
             </section>
 
@@ -112,10 +111,10 @@
 
     <section class="rating-form">
         <h2>Оцените достопримечательность</h2>
-        <form action="" method="post">
+        <form action="{% url 'sight_detail' sight_id=sight.id %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Отправить</button>
+            <button type="submit" name="rating">Отправить</button>
         </form>
     </section>
 </div>
