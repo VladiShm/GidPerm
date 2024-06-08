@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 from django import forms
 from django.contrib.auth.models import User
 
-from gid.models import Rating
+from gid.models import Rating, UserNote
 
 
 class UserLoginForm(AuthenticationForm):
@@ -46,4 +46,14 @@ class RatingForm(forms.ModelForm):
         fields = ['score']
         widgets = {
             'score': forms.NumberInput(attrs={'min': 1, 'max': 5})
+        }
+
+
+
+class UserNoteForm(forms.ModelForm):
+    class Meta:
+        model = UserNote
+        fields = ['text']
+        widgets = {
+            'text': forms.Textarea(attrs={'rows': 4, 'cols': 50, 'class': 'note-textarea'}),
         }

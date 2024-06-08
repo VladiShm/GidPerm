@@ -9,15 +9,12 @@ class Sight(models.Model):
     image = models.ImageField(upload_to='sight_images')
 
     def average_rating(self):
-        ratings = self.rating_set.all()
-        if ratings.exists():
-            return sum(rating.score for rating in ratings) / ratings.count()
-        return 0
+        avg_rating = self.rating_set.aggregate(average=Avg('score'))['average']
+        return avg_rating if avg_rating is not None else 0
 
     @staticmethod
     def top_rated_sights(limit=4):
         return Sight.objects.annotate(avg_rating=Avg('rating__score')).order_by('-avg_rating')[:limit]
-
 
 class Rating(models.Model):
     sight = models.ForeignKey(Sight, on_delete=models.CASCADE)
@@ -33,3 +30,14 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+class UserNote(models.Model):
+    sight = models.ForeignKey(Sight, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('sight', 'user')
+
