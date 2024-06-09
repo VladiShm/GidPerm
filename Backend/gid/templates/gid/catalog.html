@@ -47,6 +47,10 @@
                     </li>
                     {% endif %}
                 </ul>
+                <form id="search-form">
+            <input type="text" id="search-input" placeholder="Поиск..." />
+            <button type="submit">Поиск</button>
+          </form>
             </nav>
         </div>
         <div class="main">
@@ -63,5 +67,6 @@
             </div>
         </div>
     </div>
+<script src="{% static 'js/search.js' %}"></script>
 </body>
 </html>

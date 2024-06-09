@@ -93,6 +93,7 @@ nav ul li ul li:hover {
   background-image: url("../img/background.png");
   height: 95vh;
 }
+
 .main-title {
   font-size: 2.5em;
   font-weight: 700;
@@ -176,4 +177,71 @@ color: black;
   width: 10px;
   background-color: #7b7a85;
   margin: 0 20px;
+}
+/* Стили для формы поиска */
+#search-form {
+  display: flex;
+  align-items: center;
+}
+
+#search-input {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#search-form button {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+#search-form button:hover {
+  background-color: #555;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: black;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  position: relative;
+  float: left;
+}
+
+.nav-links li a {
+  padding: 15px;
+  color: #000;
+  font-size: 16px;
+  display: block;
+}
+
+nav ul li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+  background-color: white;
+  display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px 0;
 }
