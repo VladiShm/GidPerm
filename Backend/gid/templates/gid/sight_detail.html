@@ -31,6 +31,9 @@
                             <a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a>
                         </li>
                         {% endif %}
+                                                <li>
+    <a href="{% url 'user_visited_sights' %}"><i class="fas fa-map-marker-alt"></i> Мои места</a>
+</li>
                         <li>
                             <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
                         </li>
@@ -52,17 +55,15 @@
                 <h1>{{ sight.name }}</h1>
             </section>
 
-            <section class="sight-details">
-                <div class="image-container">
-                    <img src="{{ sight.image.url }}" alt="{{ sight.name }}">
-                </div>
-                <div class="description">
-                    <p>{{ sight.description }}</p>
-                    <p class="rating">Средняя оценка: {{ sight.average_rating }}</p>
-                </div>
-            </section>
-
-            <!-- Comments section and form -->
+           <section class="sight-details">
+    <div class="image-container">
+        <img src="{{ sight.image.url }}" alt="{{ sight.name }}">
+    </div>
+    <div class="description">
+        <p>{{ sight.description }}</p>
+        <p class="rating">Средняя оценка: {{ sight.average_rating }}</p>
+    </div>
+</section>
             <section class="comments">
                 <div class="comments-header">
                     <h2>Комментарии</h2>
@@ -116,7 +117,15 @@
             {{ form.as_p }}
             <button type="submit" name="rating">Отправить</button>
         </form>
+                <form action="{% url 'mark_visited' sight_id=sight.id %}" method="post">
+        {% csrf_token %}
+        {% if user_visited %}
+            <button type="button" class="button-visit visited">Вы уже были здесь</button>
+        {% else %}
+            <button type="submit" class="button-visit">Я был в этом месте</button>
+        {% endif %}
     </section>
+    </form>
 </div>
         {% endif %}
     </div>

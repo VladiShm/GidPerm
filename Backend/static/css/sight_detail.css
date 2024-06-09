@@ -289,3 +289,53 @@ nav ul li ul li:hover {
   background-color: #D48181;
 }
 
+/* Стили для кнопки */
+.button-visit {
+    background-color: #F56060;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    position: relative;
+}
+
+/* Стили для эффекта "галочки" */
+.button-visit::after {
+    content: "\2714";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.button-visit:hover::after {
+    opacity: 1;
+}
+
+.button-visit:focus::after {
+    opacity: 1;
+}
+
+.button-visit::after {
+    opacity: 0;
+}
+
+.button-visit:hover {
+    background-color: #D48181; /* Цвет фона кнопки при наведении */
+}
+
+.button-visit:focus {
+    background-color: #D48181; /* Цвет фона кнопки при фокусировке */
+}

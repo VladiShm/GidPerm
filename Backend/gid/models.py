@@ -27,16 +27,6 @@ class Sight(models.Model):
         verbose_name_plural = 'Достопримечательности'
 
 
-class Rating(models.Model):
-    sight = models.ForeignKey(Sight, on_delete=models.CASCADE, verbose_name='Достопримечательность')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    score = models.PositiveIntegerField(verbose_name='Оценка')
-
-    class Meta:
-        verbose_name = 'Рейтинг'
-        verbose_name_plural = 'Рейтинги'
-        unique_together = ('sight', 'user')
-
 
 class Comment(models.Model):
     sight = models.ForeignKey(Sight, on_delete=models.CASCADE, verbose_name='Достопримечательность')
@@ -61,3 +51,22 @@ class UserNote(models.Model):
         verbose_name_plural = 'Заметки пользователей'
         unique_together = ('sight', 'user')
 
+
+class Visit(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sight = models.ForeignKey(Sight, on_delete=models.CASCADE)
+    visited_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'sight')
+
+
+class Rating(models.Model):
+    sight = models.ForeignKey(Sight, on_delete=models.CASCADE, verbose_name='Достопримечательность')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    score = models.PositiveIntegerField(verbose_name='Оценка')
+
+    class Meta:
+        verbose_name = 'Рейтинг'
+        verbose_name_plural = 'Рейтинги'
+        unique_together = ('sight', 'user')

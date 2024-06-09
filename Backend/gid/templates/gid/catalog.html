@@ -27,9 +27,9 @@
                     <li>
                         <a href="#"><i class="fas fa-bars"></i> Меню</a>
                         <ul>
-                            <li>
-                                <a href="{% url 'index' %}"><i class="fas fa-user"></i> Профиль</a>
-                            </li>
+                        <li>
+    <a href="{% url 'user_visited_sights' %}"><i class="fas fa-map-marker-alt"></i> Мои места</a>
+</li>
                             {% if user.is_superuser %}
                             <li>
                                 <a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a>
@@ -38,6 +38,7 @@
                             <li>
                                 <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
                             </li>
+
                         </ul>
                     </li>
                     {% endif %}

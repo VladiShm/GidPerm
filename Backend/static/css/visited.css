@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8%;
+    z-index: 1000;
+    background-color: #ffffff; /* set background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* add shadow */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 60px;
+    margin-right: 10px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    color: black;
+}
+
+.header nav ul li {
+    position: relative;
+    float: left;
+}
+
+.header nav ul li a {
+    padding: 15px;
+    color: #000;
+    font-size: 16px;
+    display: block;
+}
+
+nav ul li ul {
+    position: absolute;
+    left: 0;
+    width: 180px;
+    background-color: white;
+    display: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* add shadow */
+}
+
+nav ul li ul li {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+nav ul li:hover > ul {
+    display: initial;
+}
+
+nav ul li ul li:hover {
+    background: #e4e6ec;
+}
+
+.content {
+    margin-top: 100px; /* adjust margin-top to accommodate fixed header */
+}
+
+.sight {
+    margin-bottom: 20px;
+}
+
+.sight-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Стили для списка достопримечательностей */
+.sights-list {
+    margin: 0 auto; /* Центрирование списка */
+    padding: 20px;
+    background-color: #f9f9f9; /* Фон списка */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+.sight {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff; /* Фон элементов списка */
+    border-radius: 10px;
+    transition: background-color 0.3s ease; /* Анимация при наведении */
+}
+
+.sight:hover {
+    background-color: #f0f0f0; /* Изменение фона при наведении */
+}
+
+.sight-info {
+    display: flex;
+    align-items: center;
+}
+
+.sight-image {
+    width: 80px; /* Установка размера картинки */
+    height: auto;
+    margin-right: 20px; /* Отступ между картинкой и текстом */
+    border-radius: 8px;
+}
+
+.sight h2 {
+    margin: 0; /* Удаление внешних отступов у заголовка */
+}
+
+.content h1 {
+    font-size: 2.5em; /* Тот же размер шрифта, что и для заголовка "Самые популярные достопримечательности" */
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.content h1::after {
+    content: '';
+    display: block;
+    width: 100px; /* Та же ширина линии */
+    height: 4px; /* Та же высота линии */
+    background: #ff6347; /* Тот же цвет линии */
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+
+.visited-date {
+    display: block;
+    margin-top: 5px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: fit-content;
+    margin-left: 50px;
+}

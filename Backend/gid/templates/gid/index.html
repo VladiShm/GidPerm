@@ -29,6 +29,9 @@
                                 <a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a>
                             </li>
                             {% endif %}
+                                                    <li>
+    <a href="{% url 'user_visited_sights' %}"><i class="fas fa-map-marker-alt"></i> Мои места</a>
+</li>
                             <li>
                                 <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
                             </li>

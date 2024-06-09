@@ -15,6 +15,8 @@ urlpatterns = [
     path('catalog/', catalog, name='catalog'),
     path('sight/<int:sight_id>/', views.sight_detail, name='sight_detail'),
     path('sight/<int:sight_id>/comment_submit/', views.submit_comment, name='comment_submit'),
+    path('sight/<int:sight_id>/mark_visited/', views.mark_visited, name='mark_visited'),
+    path('visited_sights/', views.user_visited_sights, name='user_visited_sights'),
 ]
 
 

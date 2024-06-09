@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from gid.forms import UserLoginForm, UserRegistrationForm, RatingForm, UserNoteForm
-from gid.models import Sight, Rating, Comment, UserNote
+from gid.models import Sight, Comment, UserNote, Visit, Rating
 
 
 def index(request):
@@ -67,6 +67,11 @@ def sight_detail(request, sight_id):
     comments = Comment.objects.filter(sight=sight)
     user_note = None
 
+    # Проверяем, посещал ли пользователь это место
+    user_visited = False
+    if request.user.is_authenticated:
+        user_visited = Visit.objects.filter(user=request.user, sight=sight).exists()
+
     if request.user.is_authenticated:
         user_note = UserNote.objects.filter(sight=sight, user=request.user).first()
         if request.method == 'POST':
@@ -93,6 +98,7 @@ def sight_detail(request, sight_id):
         'note_form': note_form,
         'comments': comments,
         'user_note': user_note,
+        'user_visited': user_visited,
     })
 
 
@@ -103,3 +109,16 @@ def submit_comment(request, sight_id):
         sight = get_object_or_404(Sight, pk=sight_id)
         Comment.objects.create(user=request.user, sight=sight, text=text)
     return redirect('sight_detail', sight_id=sight_id)
+
+@login_required
+def mark_visited(request, sight_id):
+    if request.method == 'POST':
+        sight = get_object_or_404(Sight, pk=sight_id)
+        Visit.objects.get_or_create(user=request.user, sight=sight)
+        return redirect('sight_detail', sight_id=sight_id)
+
+
+@login_required
+def user_visited_sights(request):
+    visited_sights = Visit.objects.filter(user=request.user)
+    return render(request, 'gid/user_visited_sights.html', {'visited_sights': visited_sights})
