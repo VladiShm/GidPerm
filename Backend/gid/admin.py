@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Sight, Rating, Comment, UserNote
+from .models import Sight, Rating, Comment, UserNote, Event
+
 
 @admin.register(Sight)
 class SightAdmin(admin.ModelAdmin):
@@ -27,3 +28,5 @@ class UserNoteAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at')
     verbose_name = 'Заметка пользователя'
     verbose_name_plural = 'Заметки пользователей'
+
+admin.site.register(Event)

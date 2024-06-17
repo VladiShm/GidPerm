@@ -8,7 +8,6 @@
     <title>{{ sight.name }}</title>
 </head>
 <body>
-
     <div class="header" style="background-image: url('{% static 'img/img.png' %}')">
         <div class="logo-container">
             <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-image">
@@ -86,6 +85,7 @@
     </ul>
 </section>
 
+
 <section class="comment-form">
     <h2>Оставить комментарий</h2>
     <form action="{% url 'comment_submit' sight.id %}" method="post" enctype="multipart/form-data" class="comment-form" id="commentForm">
@@ -161,6 +161,25 @@
             {% endif %}
         </form>
     </section>
+ <section class="events">
+    <h2>События</h2>
+    <ul class="event-list">
+        {% for event in events %}
+        <li class="event">
+            <div class="event-info">
+                <h3>{{ event.title }}</h3>
+                <p class="event-description">{{ event.description }}</p>
+                <p><strong>Дата:</strong> {{ event.date }}</p>
+                {% if event.time %}
+                <p><strong>Время:</strong> {{ event.time }}</p>
+                {% endif %}
+            </div>
+        </li>
+        {% empty %}
+        <li class="no-events">На данный момент нет запланированных событий.</li>
+        {% endfor %}
+    </ul>
+</section>
 </div>
         {% endif %}
     </div>

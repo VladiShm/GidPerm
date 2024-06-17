@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 from django import forms
 from django.contrib.auth.models import User
 
-from gid.models import Rating, UserNote, Comment
+from gid.models import Rating, UserNote, Comment, Event
 
 
 class UserLoginForm(AuthenticationForm):
@@ -65,3 +65,8 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'text': forms.Textarea(attrs={'rows': 4, 'cols': 50}),
         }
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ['title', 'description', 'date', 'time']

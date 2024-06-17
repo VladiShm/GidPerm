@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from gid.forms import UserLoginForm, UserRegistrationForm, RatingForm, UserNoteForm, CommentForm
-from gid.models import Sight, Comment, UserNote, Visit, Rating
+from gid.forms import UserLoginForm, UserRegistrationForm, RatingForm, UserNoteForm, CommentForm, EventForm
+from gid.models import Sight, Comment, UserNote, Visit, Rating, Event
 
 
 def index(request):
@@ -66,6 +66,7 @@ def sight_detail(request, sight_id):
     note_form = UserNoteForm()
     comments = Comment.objects.filter(sight=sight)
     user_note = None
+    events = sight.events.all()
 
     # Проверяем, посещал ли пользователь это место
     user_visited = False
@@ -99,6 +100,7 @@ def sight_detail(request, sight_id):
         'comments': comments,
         'user_note': user_note,
         'user_visited': user_visited,
+        'events': events,
     })
 
 
@@ -129,3 +131,4 @@ def mark_visited(request, sight_id):
 def user_visited_sights(request):
     visited_sights = Visit.objects.filter(user=request.user)
     return render(request, 'gid/user_visited_sights.html', {'visited_sights': visited_sights})
+

@@ -382,3 +382,45 @@ nav ul li ul li:hover {
     height: auto;
     display: none;
 }
+.events {
+  margin-top: 30px;
+}
+
+.event-list {
+  list-style: none;
+  padding: 0;
+}
+
+.event {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.event-info {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.event-info h3 {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.event-description {
+  color: #555;
+}
+
+.event p {
+  margin-bottom: 8px;
+}
+
+.no-events {
+  color: #888;
+  font-style: italic;
+  padding: 10px;
+  text-align: center;
+}

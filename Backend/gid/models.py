@@ -73,3 +73,18 @@ class Rating(models.Model):
         verbose_name = 'Рейтинг'
         verbose_name_plural = 'Рейтинги'
         unique_together = ('sight', 'user')
+
+class Event(models.Model):
+    sight = models.ForeignKey(Sight, on_delete=models.CASCADE, verbose_name='Достопримечательность', related_name='events')
+    title = models.CharField(max_length=200, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание')
+    date = models.DateField(verbose_name='Дата')
+    time = models.TimeField(verbose_name='Время', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Событие'
+        verbose_name_plural = 'События'
