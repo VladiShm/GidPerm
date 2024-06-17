@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 from django import forms
 from django.contrib.auth.models import User
 
-from gid.models import Rating, UserNote
+from gid.models import Rating, UserNote, Comment
 
 
 class UserLoginForm(AuthenticationForm):
@@ -54,4 +54,14 @@ class UserNoteForm(forms.ModelForm):
         fields = ['text']
         widgets = {
             'text': forms.Textarea(attrs={'rows': 4, 'cols': 50, 'class': 'note-textarea'}),
+        }
+
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text', 'image']
+        widgets = {
+            'text': forms.Textarea(attrs={'rows': 4, 'cols': 50}),
         }

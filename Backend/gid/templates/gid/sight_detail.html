@@ -31,9 +31,9 @@
                             <a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a>
                         </li>
                         {% endif %}
-                                                <li>
-    <a href="{% url 'user_visited_sights' %}"><i class="fas fa-map-marker-alt"></i> Мои места</a>
-</li>
+                        <li>
+                            <a href="{% url 'user_visited_sights' %}"><i class="fas fa-map-marker-alt"></i> Мои места</a>
+                        </li>
                         <li>
                             <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
                         </li>
@@ -64,34 +64,69 @@
         <p class="rating">Средняя оценка: {{ sight.average_rating }}</p>
     </div>
 </section>
-            <section class="comments">
-                <div class="comments-header">
-                    <h2>Комментарии</h2>
-                </div>
-                <ul class="comment-list">
-                    {% for comment in comments %}
-                    <li class="comment">
-                        <div class="comment-info">
-                            <strong class="comment-author">{{ comment.user.username }}</strong>
-                            <small class="comment-date">{{ comment.created_at }}</small>
-                        </div>
-                        <p class="comment-text">{{ comment.text }}</p>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </section>
+<section class="comments">
+    <div class="comments-header">
+        <h2>Комментарии</h2>
+    </div>
+    <ul class="comment-list">
+        {% for comment in comments %}
+        <li class="comment">
+            <div class="comment-info">
+                <strong class="comment-author">{{ comment.user.username }}</strong>
+                <small class="comment-date">{{ comment.created_at }}</small>
+            </div>
+            <p class="comment-text">{{ comment.text }}</p>
+            {% if comment.image %}
+            <div class="comment-image">
+                <img src="{{ comment.image.url }}" alt="Comment image">
+            </div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
 
-            <section class="comment-form">
-                <h2>Оставить комментарий</h2>
-                <form action="{% url 'comment_submit' sight.id %}" method="post" class="comment-form">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <textarea name="text" rows="4" cols="50" class="comment-textarea"></textarea>
-                    </div>
-                    <button type="submit" class="comment-submit-btn">Отправить</button>
-                </form>
-            </section>
+<section class="comment-form">
+    <h2>Оставить комментарий</h2>
+    <form action="{% url 'comment_submit' sight.id %}" method="post" enctype="multipart/form-data" class="comment-form" id="commentForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="text" rows="4" cols="50" class="comment-textarea" placeholder="Напишите свой комментарий..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="id_image" class="upload-label">
+                <i class="fas fa-paperclip"></i> Прикрепить изображение
+            </label>
+            <input type="file" name="image" id="id_image" class="upload-input" onchange="previewImage(this);">
+            <div class="image-preview-container">
+                <img id="imagePreview" src="#" alt="Preview">
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="comment-submit-btn">Отправить комментарий</button>
+        </div>
+    </form>
+</section>
 
+<script>
+    function previewImage(input) {
+        var preview = document.getElementById('imagePreview');
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    }
+</script>
         </div>
         {% if user.is_authenticated %}
        <div class="side-content">
@@ -117,15 +152,15 @@
             {{ form.as_p }}
             <button type="submit" name="rating">Отправить</button>
         </form>
-                <form action="{% url 'mark_visited' sight_id=sight.id %}" method="post">
-        {% csrf_token %}
-        {% if user_visited %}
-            <button type="button" class="button-visit visited">Вы уже были здесь</button>
-        {% else %}
-            <button type="submit" class="button-visit">Я был в этом месте</button>
-        {% endif %}
+        <form action="{% url 'mark_visited' sight_id=sight.id %}" method="post">
+            {% csrf_token %}
+            {% if user_visited %}
+                <button type="button" class="button-visit visited">Вы уже были здесь</button>
+            {% else %}
+                <button type="submit" class="button-visit">Я был в этом месте</button>
+            {% endif %}
+        </form>
     </section>
-    </form>
 </div>
         {% endif %}
     </div>

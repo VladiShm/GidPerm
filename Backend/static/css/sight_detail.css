@@ -212,6 +212,19 @@ nav ul li ul li:hover {
   color: #444;
 }
 
+/* Добавим стили для изображений в комментариях */
+.comment-image {
+  margin-top: 10px;
+}
+
+.comment-image img {
+  width: 100%; /* Задает ширину изображения */
+  max-width: 300px; /* Максимальная ширина изображения */
+  height: auto; /* Сохраняет пропорции изображения */
+  border-radius: 8px; /* Закругленные углы */
+  display: block;
+}
+
 .comment-form {
   margin-top: 50px;
 }
@@ -245,8 +258,9 @@ nav ul li ul li:hover {
 .comment-form .comment-submit-btn:hover {
   background-color: #D48181;
 }
+
 .side-content {
-    margin-top:15px;
+    margin-top: 15px;
 }
 
 .side-content section {
@@ -338,4 +352,33 @@ nav ul li ul li:hover {
 
 .button-visit:focus {
     background-color: #D48181; /* Цвет фона кнопки при фокусировке */
+}
+.upload-label {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #F56060;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+    background-color: #D48181;
+}
+
+.upload-input {
+    display: none;
+}
+.image-preview-container {
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#imagePreview {
+    max-width: 100%;
+    height: auto;
+    display: none;
 }

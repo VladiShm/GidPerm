@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from gid.forms import UserLoginForm, UserRegistrationForm, RatingForm, UserNoteForm
+from gid.forms import UserLoginForm, UserRegistrationForm, RatingForm, UserNoteForm, CommentForm
 from gid.models import Sight, Comment, UserNote, Visit, Rating
 
 
@@ -104,11 +104,18 @@ def sight_detail(request, sight_id):
 
 @login_required
 def submit_comment(request, sight_id):
+    sight = get_object_or_404(Sight, pk=sight_id)
     if request.method == 'POST':
-        text = request.POST.get('text')
-        sight = get_object_or_404(Sight, pk=sight_id)
-        Comment.objects.create(user=request.user, sight=sight, text=text)
-    return redirect('sight_detail', sight_id=sight_id)
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.sight = sight
+            comment.user = request.user
+            comment.save()
+            return redirect('sight_detail', sight_id=sight_id)
+    else:
+        form = CommentForm()
+    return render(request, 'gid/sight_detail.html', {'form': form, 'sight': sight})
 
 @login_required
 def mark_visited(request, sight_id):

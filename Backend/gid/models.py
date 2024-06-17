@@ -28,15 +28,18 @@ class Sight(models.Model):
 
 
 
+
 class Comment(models.Model):
-    sight = models.ForeignKey(Sight, on_delete=models.CASCADE, verbose_name='Достопримечательность')
+    sight = models.ForeignKey('Sight', on_delete=models.CASCADE, verbose_name='Достопримечательность')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    text = models.TextField(verbose_name='Текст')
+    text = models.TextField(verbose_name='Текст', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    image = models.ImageField(upload_to='comment_images', null=True, blank=True, verbose_name='Изображение')
 
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+
 
 
 class UserNote(models.Model):
